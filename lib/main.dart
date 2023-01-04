@@ -1,3 +1,4 @@
+import 'package:dreamforest/store_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -101,6 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StoreDetail()),
+                );
+              }, 
+              child: Text("다음 화면 이동")
             ),
           ],
         ),
