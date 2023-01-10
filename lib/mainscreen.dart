@@ -15,6 +15,7 @@ class MainScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Image.asset('assets/images/logo.jpeg'),
                 Text(
                   'DREAM FOREST',
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),

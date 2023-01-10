@@ -8,8 +8,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainScreen());
+    return MaterialApp(
+      home: MainScreen(),
+      title: 'Dream Forest',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+      ),
+    );
       // title: 'Flutter Demo',
       // theme: ThemeData(
       //   primaryColor: Colors.white,

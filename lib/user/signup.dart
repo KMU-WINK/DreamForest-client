@@ -1,4 +1,4 @@
-import 'package:dreamforest/profilepage.dart';
+import 'package:dreamforest/profile.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -9,6 +9,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<SignUpPage> {
+  String nickname = "";
+  String id = "";
+  String password ="";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +106,11 @@ class _AuthPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
+                      onChanged: (text) {
+                        setState(() {
+                          nickname = text;
+                        });
+                      },
                     ),
                   ),
                   Padding(
@@ -119,6 +128,11 @@ class _AuthPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
+                      onChanged: (text) {
+                        setState(() {
+                          id = text;
+                        });
+                      },
                     ),
                   ),
                   Padding(
@@ -137,6 +151,11 @@ class _AuthPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
+                      onChanged: (text) {
+                        setState(() {
+                          password = text;
+                        });
+                      },
                     ),
                   ),
                   Row(
@@ -167,7 +186,7 @@ class _AuthPageState extends State<SignUpPage> {
                               onPressed: () {
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),

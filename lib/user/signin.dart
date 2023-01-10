@@ -1,4 +1,4 @@
-import 'package:dreamforest/profilepage.dart';
+import 'package:dreamforest/profile.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
@@ -9,6 +9,10 @@ class SignInPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<SignInPage> {
+  String nickname = "";
+  String id = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +23,7 @@ class _AuthPageState extends State<SignInPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 490,
+              height: 390,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -119,6 +123,11 @@ class _AuthPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
+                      onChanged: (text) {
+                        setState(() {
+                          id = text;
+                        });
+                      },
                     ),
                   ),
                   Padding(
@@ -137,6 +146,11 @@ class _AuthPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
+                      onChanged: (text) {
+                        setState(() {
+                          password = text;
+                        });
+                      },
                     ),
                   ),
                   Row(
@@ -167,7 +181,7 @@ class _AuthPageState extends State<SignInPage> {
                               onPressed: () {
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),
