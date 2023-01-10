@@ -1,33 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:dreamforest/Store.dart';
+import 'package:dreamforest/item_card.dart';
 
-class MenuDetail extends StatefulWidget {
-  const MenuDetail({Key? key}) : super(key: key);
-
-  @override
-  _MenuDetailState createState() => _MenuDetailState();
-}
-
-class _MenuDetailState extends State<MenuDetail> {
+class MenuDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('GridviewPage'),
-        ),
-        body: GridView.count(
-          crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-          childAspectRatio: 1 / 2, //item 의 가로 1, 세로 2 의 비율
-          mainAxisSpacing: 10, //수평 Padding
-          crossAxisSpacing: 10, //수직 Padding
-          children: List.generate(11, (index) {  //item 의 반목문 항목 형성
-            return Container(
-              color: Colors.lightGreen,
-              child: Text(' Item : $index번째 메뉴'),
-            );
-          }),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 2, 171, 92),
       ),
+      body : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const SizedBox(height: 30,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              "메뉴",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: 30),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: GridView.builder(
+                  itemCount: menus.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20.0,
+                    crossAxisSpacing: 20.0,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemBuilder: (context, index) => ItemCard(
+                        menu: menus[index],
+                      )),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
