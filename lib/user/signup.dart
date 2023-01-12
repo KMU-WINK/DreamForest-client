@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:dreamforest/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -183,10 +185,21 @@ class _AuthPageState extends State<SignUpPage> {
                                 color: Color.fromARGB(255, 2, 171, 92), shape: BoxShape.circle),
                             child: IconButton(
                               color: Colors.white,
-                              onPressed: () {
+                              onPressed: ()  async {
+                                print(nickname);
+                                final url = Uri.parse("http://13.124.141.14:8080/user/signup");
+
+                                Map data={"email": id, "name": "d", "nickname": nickname, "password": password};
+                                var body = json.encode(data);
+                                http.Response res = await http.post(
+                                    url,
+                                    headers: {"Content-Type": "application/json"},
+                                    body: body
+                                );
+                                var token = res.body.split('"')[3];
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                                    MaterialPageRoute(builder: (context) => Profile(token)));
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),
