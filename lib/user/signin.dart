@@ -1,5 +1,8 @@
 import 'package:dreamforest/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -9,9 +12,17 @@ class SignInPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<SignInPage> {
+  // Future<Info>? info;
+
   String nickname = "";
   String id = "";
   String password = "";
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   info = fetchInfo();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,24 +101,6 @@ class _AuthPageState extends State<SignInPage> {
                           fontSize: 18, fontWeight: FontWeight.normal),
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(
-                  //       left: 16, right: 16, top: 32, bottom: 8),
-                  //   child: TextField(
-                  //     style: TextStyle(fontSize: 18),
-                  //     keyboardType: TextInputType.text,
-                  //     textCapitalization: TextCapitalization.words,
-                  //     decoration: InputDecoration(
-                  //       hintText: 'NickName',
-                  //       enabledBorder: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //           borderSide: BorderSide(color: Colors.grey)),
-                  //       focusedBorder: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //           borderSide: BorderSide(color: Colors.grey)),
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
                     padding:
                     EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
@@ -178,10 +171,33 @@ class _AuthPageState extends State<SignInPage> {
                                 color: Color.fromARGB(255, 2, 171, 92), shape: BoxShape.circle),
                             child: IconButton(
                               color: Colors.white,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                              onPressed: ()  async {
+                                final url = Uri.parse("http://13.124.141.14:8080/user/login");
+
+                                Map data={"email": id, "password": password};
+                                var body = json.encode(data);
+                                http.Response res = await http.post(
+                                    url,
+                                    headers: {"Content-Type": "application/json"},
+                                    body: body
+                                );
+                                var token = res.body.split('"')[3];
+                                // print(token);
+                                if (token != 'user not found!') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Profile(token)));
+                                }
+                                // print(res.body.split('"')[3]);
+                                // final url1 = Uri.parse("http://13.124.141.14:8080/user/info");
+                                // Map data1 = {"token":res.body.split('"')[3]};
+                                // var body1 = json.encode(data1);
+                                // http.Response res1 = await http.post(
+                                //     url1,
+                                //     headers: {"Content-Type": "application/json"},
+                                //     body: body1
+                                // );
+                                // print(res1.body);
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),
