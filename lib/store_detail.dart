@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'Store.dart';
 import 'menu_detail.dart';
 
 
 class StoreDetail extends StatelessWidget {
+  final Store store;
+  const StoreDetail({
+    Key? key,
+    required this.store,
+  }): super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -10,7 +16,10 @@ class StoreDetail extends StatelessWidget {
           Container(
               foregroundDecoration: BoxDecoration(color: Colors.black26),
               height: 400,
-              child: Image.asset('assets/images/food.png', fit: BoxFit.cover)),
+              child: Image.network(
+                store.naverMenuImages == 'null' ? 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?b=1&s=170667a&w=0&k=20&c=LEhQ7Gji4-gllQqp80hLpQsLHlHLw61DoiVf7XJsSx0='
+                            : store.naverMenuImages[0])),
+              //Image.asset('assets/images/food.png', fit: BoxFit.cover)),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16.0, bottom: 20.0),
             child: Column(
@@ -20,8 +29,8 @@ class StoreDetail extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    "북악골",
-                    style: TextStyle(
+                    store.storeName,
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 28.0,
                         fontWeight: FontWeight.bold),
@@ -35,14 +44,14 @@ class StoreDetail extends StatelessWidget {
                         horizontal: 16.0,
                       ),
                       child: Text(
-                        "돼지고기구이",
-                        style: TextStyle(color: Colors.grey, fontSize: 16.0),
+                        store.type,
+                        style: const TextStyle(color: Colors.white, fontSize: 16.0),
                       ),
                     ),
                     Spacer(),
                     IconButton(
                       color: Colors.white,
-                      icon: Icon(Icons.favorite_border),
+                      icon: const Icon(Icons.favorite_border),
                       onPressed: () {},
                     )
                   ],
@@ -62,47 +71,48 @@ class StoreDetail extends StatelessWidget {
                               children: <Widget>[
                                 Text.rich(
                                   TextSpan(children: [
-                                    WidgetSpan(
+                                    const WidgetSpan(
                                         child: Icon(
                                       Icons.location_on,
                                       size: 18.0,
                                       color: Color.fromARGB(255, 2, 171, 92),
                                     )),
-                                    TextSpan(text: " 서울 성북구 정릉로10길 36 (정릉동) 1층")
+                                    TextSpan(text: ' ${store.roadAddress}')
                                   ]),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 16.0),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10.0,
                                 ),
                                 Text.rich(
                                   TextSpan(children: [
-                                    WidgetSpan(
+                                    const WidgetSpan(
                                         child: Icon(
                                       Icons.schedule,
                                       size: 18.0,
                                       color: Color.fromARGB(255, 2, 171, 92),
                                     )),
-                                    TextSpan(text: " 10:00 ~ 21:00")
+                                    TextSpan(text: store.naverBizHour == 'null' ? ' 이용시간 정보가 없습니다.'
+                                    : ' ${store.naverBizHour[0]['startTime']} ~ ${store.naverBizHour[0]['endTime']}')
                                   ]),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 16.0),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10.0,
                                 ),
                                 Text.rich(
                                   TextSpan(children: [
-                                    WidgetSpan(
+                                    const WidgetSpan(
                                         child: Icon(
                                       Icons.call,
                                       size: 18.0,
                                       color: Color.fromARGB(255, 2, 171, 92),
                                     )),
-                                    TextSpan(text: " 02-911-0033")
+                                    TextSpan(text: " ${store.phoneNumber}")
                                   ]),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 16.0),
                                 ),
                               ],
@@ -133,16 +143,37 @@ class StoreDetail extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            "삼겹살",
-                            style: TextStyle(
+                          Text(store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[0]['name'],
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Text(store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[0]['price'],
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 2, 171, 92),
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[1]['name'],
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16.0,
                             ),
                           ),
                           Text(
-                            "8000원",
-                            style: TextStyle(
+                            store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[1]['price'],
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 2, 171, 92),
                               fontSize: 16.0,
                             ),
@@ -154,35 +185,17 @@ class StoreDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "삼겹살",
-                            style: TextStyle(
+                            store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[2]['name'],
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16.0,
                             ),
                           ),
                           Text(
-                            "8000원",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 2, 171, 92),
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "삼겹살",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          Text(
-                            "8000원",
-                            style: TextStyle(
+                            store.naverMenus == 'null' ? '메뉴가 없습니다.'
+                            : store.naverMenus[2]['price'],
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 2, 171, 92),
                               fontSize: 16.0,
                             ),

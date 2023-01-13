@@ -1,5 +1,9 @@
 import 'package:dreamforest/store_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'Store.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -104,11 +108,33 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             ElevatedButton(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => StoreDetail()),
-                );
+              onPressed: ()async{
+                final storeId = "1203";
+                final url = Uri.parse("http://13.124.141.14:8080/store/detail/" + storeId);
+                final response = await http.get(url);
+                if(response.statusCode==200){
+                  print(jsonDecode(utf8.decode(response.bodyBytes)));
+                  Store store = Store.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => StoreDetail(
+                      store: store,
+                    )),
+                  );
+                  // var info = response.body["id"]
+                  // Map store_info= {"id":response.body[]}
+
+                }
+                
+                //  Map data={"email": id, "password": password};
+                // var body = json.encode(data);
+                // http.Response res = await http.get(
+                //     url,
+                //     headers: {"Content-Type": "application/json"},
+                //     // body: body
+                // );
+                // print(res.body.split('"')[3]);
+
               }, 
               child: Text("다음 화면 이동")
             ),
