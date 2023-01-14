@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dreamforest/edit/logout.dart';
 import 'package:dreamforest/edit/nicknameedit.dart';
 import 'package:dreamforest/edit/pswdcheck.dart';
 import 'package:dreamforest/mainscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   String id;
@@ -18,6 +21,7 @@ class Profile extends StatefulWidget {
 }
 
 class _AuthPageState extends State<Profile> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +134,7 @@ class _AuthPageState extends State<Profile> {
                       child: TextButton(onPressed: (){
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PasswordCheck()));
+                            MaterialPageRoute(builder: (context) => PasswordCheck(widget.password)));
                       }, child: Text('Change Password',
                             style: TextStyle(color: Color.fromARGB(255, 2, 171, 92),),)),),
                     ],
@@ -143,7 +147,7 @@ class _AuthPageState extends State<Profile> {
                         child: TextButton(onPressed: (){
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Logout()));
+                              MaterialPageRoute(builder: (context) => MainScreen()));
                         }, child: Text('Logout',
                               style: TextStyle(color: Color.fromARGB(255, 2, 171, 92),),)),),
                     ],
