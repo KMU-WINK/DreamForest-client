@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 import 'Store.dart';
 import 'menu_detail.dart';
 
+List<Menu> menus = [];
 
+void addMenu(List<dynamic> menuMap){
+    int i = 1;
+    menuMap.forEach((menuList) { 
+    menus.add(
+      Menu(
+        id: i,
+        name : menuList['name'],
+        price : menuList['price']
+      )
+    );
+    i++;
+  });
+}
 class StoreDetail extends StatelessWidget {
   final Store store;
   const StoreDetail({
@@ -221,10 +235,13 @@ class StoreDetail extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.normal),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MenuDetail()),
-                      );
+                      addMenu(store.naverMenus);
+                      print(menus.toString());
+                      menus = [];
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => MenuDetail()),
+                      // );
                     },
                   ),
                 ),
