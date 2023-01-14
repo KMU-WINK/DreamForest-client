@@ -186,7 +186,7 @@ class _AuthPageState extends State<SignUpPage> {
                             child: IconButton(
                               color: Colors.white,
                               onPressed: ()  async {
-                                print(nickname);
+                                // print(nickname);
                                 final url = Uri.parse("http://13.124.141.14:8080/user/signup");
 
                                 Map data={"email": id, "name": "d", "nickname": nickname, "password": password};
@@ -199,7 +199,7 @@ class _AuthPageState extends State<SignUpPage> {
                                 var token = res.body.split('"')[3];
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Profile(token)));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),
