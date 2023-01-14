@@ -196,10 +196,24 @@ class _AuthPageState extends State<SignUpPage> {
                                     headers: {"Content-Type": "application/json"},
                                     body: body
                                 );
-                                var token = res.body.split('"')[3];
+                                // print(res.body);
+                                // print(res.body.split('"'));
+                                // var token = res.body.split('"')[3];
+                                // final url1 = Uri.parse("http://13.124.141.14:8080/user/info");
+                                // Map data1 = {"token":res.body.split('"')[3]};
+                                // var body1 = json.encode(data1);
+                                // http.Response res1 = await http.post(
+                                //     url1,
+                                //     headers: {"Content-Type": "application/json"},
+                                //     body: body1
+                                // );
+                                // print(res1.body.split('"'));
+                                var id_idx = res.body.split('"')[2];
+                                String idx = id_idx[1];
+                                print(idx);
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password, idx)));
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),

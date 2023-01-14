@@ -183,7 +183,7 @@ class _AuthPageState extends State<SignInPage> {
                                 );
                                 var token = res.body.split('"')[3];
                                 // print(token);
-                                // print(res.body.split('"'));
+                                print(res.body.split('"'));
                                 final url1 = Uri.parse("http://13.124.141.14:8080/user/info");
                                 Map data1 = {"token":res.body.split('"')[3]};
                                 var body1 = json.encode(data1);
@@ -197,7 +197,7 @@ class _AuthPageState extends State<SignInPage> {
                                 if (token != 'user not found!') {
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                                      MaterialPageRoute(builder: (context) => Profile(nickname, id, password, "1")));
                                 }
                               },
                               icon: Icon(Icons.arrow_forward),

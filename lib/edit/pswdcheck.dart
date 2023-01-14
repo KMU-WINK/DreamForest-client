@@ -2,6 +2,11 @@ import 'package:dreamforest/edit/pswdedit.dart';
 import 'package:flutter/material.dart';
 
 class PasswordCheck extends StatefulWidget {
+
+  String password;
+  PasswordCheck(this.password);
+
+
   @override
   State<StatefulWidget> createState() {
     return _AuthPageState();
@@ -9,9 +14,7 @@ class PasswordCheck extends StatefulWidget {
 }
 
 class _AuthPageState extends State<PasswordCheck> {
-  String nickname = "";
-  String id = "";
-  String password = "";
+  String input_password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class _AuthPageState extends State<PasswordCheck> {
                       ),
                       onChanged: (text) {
                         setState(() {
-                          password = text;
+                          input_password = text;
                         });
                       },
                     ),
@@ -138,9 +141,11 @@ class _AuthPageState extends State<PasswordCheck> {
                             child: IconButton(
                               color: Colors.white,
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => PasswordEdit(nickname, id, password)));
+                                if (widget.password == input_password) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => PasswordEdit(widget.password)));
+                                }
                               },
                               icon: Icon(Icons.arrow_forward),
                             ),

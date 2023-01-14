@@ -2,10 +2,8 @@ import 'package:dreamforest/profile.dart';
 import 'package:flutter/material.dart';
 
 class PasswordEdit extends StatefulWidget {
-  String nickname;
-  String id;
   String password;
-  PasswordEdit(this.nickname, this.id, this.password);
+  PasswordEdit(this.password);
 
   @override
   State<StatefulWidget> createState() {
@@ -145,7 +143,7 @@ class _AuthPageState extends State<PasswordEdit> {
                               onPressed: () {
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password, "1")));
                               },
                               icon: Icon(Icons.done),
                             ),

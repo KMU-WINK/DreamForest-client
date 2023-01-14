@@ -11,7 +11,8 @@ class Profile extends StatefulWidget {
   String id;
   String nickname;
   String password;
-  Profile(this.nickname, this.id, this.password);
+  String idx;
+  Profile(this.nickname, this.id, this.password, this.idx);
 
 
   @override

@@ -140,7 +140,7 @@ class _AuthPageState extends State<NicknameEdit> {
                               onPressed: () {
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password)));
+                                    MaterialPageRoute(builder: (context) => Profile(nickname, id, password, "1")));
                               },
                               icon: Icon(Icons.done),
                             ),
